@@ -1,4 +1,9 @@
+<%@ page import="com.example.lab9_base.Bean.Partido" %>
+<%@ page import="com.example.lab9_base.Bean.Estadio" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("lista");%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,18 +32,28 @@
                     <th>Estadio a jugar</th>
                     <th>Árbitro</th>
                 </tr>
-
+                <% int i = 1;
+                    for (Partido partido : listaDePartidos) { %>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    <td><%=i%>
+                    </td>
+                    <td><%=partido.getIdPartido()%>
+                    </td>
+                    <td><%=partido.getNumeroJornada()%>
+                    </td>
+                    <td><%=partido.getSeleccionLocal()%>
+                    </td>
+                    <td><%=partido.getSeleccionVisitante()%>
+                    </td>
 
+                    <td><%=partido.getArbitro()%>
+                    </td>
+                </tr>
+                <% i++;
+                }
+                %>
             </table>
+
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

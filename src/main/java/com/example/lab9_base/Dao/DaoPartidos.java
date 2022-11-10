@@ -18,7 +18,7 @@ public class DaoPartidos {
         String password = "123456";
         String url = "jdbc:mysql://127.0.0.1:3306/lab9";
 
-        String sql = "select * from lab9.partido";
+        String sql = "select * from partido";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              Statement stmt = conn.createStatement();
@@ -63,10 +63,13 @@ public class DaoPartidos {
                 preparedStatement.setString(4, partido.getSeleccionVisitante());
                 preparedStatement.setString(5, partido.getArbitro());
 
+                preparedStatement.executeUpdate();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
 
 
 
