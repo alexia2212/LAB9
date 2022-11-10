@@ -3,7 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
-<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("lista");%>
+<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("listaDePartido");%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,10 +11,11 @@
         <title>LAB 9</title>
     </head>
     <body>
-        <jsp:include page="includes/navbar.jsp"/>
+
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
+                    <jsp:include page="includes/navbar.jsp"/>
                     <h1 class=''>Lista de Partidos</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
@@ -29,20 +30,24 @@
                     <th>Selección Local</th>
                     <th>Selección Visitante</th>
                     <th>Estadio a jugar</th>
-                    <th>Árbitro</th>
+                    <th>Arbitro</th>
                 </tr>
                 <% int i = 1;
                     for (Partido partido : listaDePartidos) { %>
                 <tr>
-                    <td><%= =i %></td>
+                    <td><%=i%>
+                    </td>
                     <td><%=partido.getNumeroJornada()%>
                     </td>
-                    <td><%=partido.getSeleccionLocal()%>
+                    <td><%=partido.getFecha()%>
                     </td>
-                    <td><%=partido.getSeleccionVisitante()%>
+                    <td><%=partido.getSeleccionLocal().getNombre()%>
                     </td>
-                    <td><%= %></td>
-                    <td><%=partido.getArbitro()%>
+                    <td><%=partido.getSeleccionVisitante().getNombre()%>
+                    </td>
+                    <td><%=partido.getSeleccionLocal().getEstadio().getNombre()%>
+                    </td>
+                    <td><%=partido.getArbitro().getNombre()%>
                     </td>
                 </tr>
                 <% i++;
