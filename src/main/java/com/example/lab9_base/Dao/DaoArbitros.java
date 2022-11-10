@@ -14,7 +14,6 @@ public class DaoArbitros extends BaseDao{
         try (Connection connection = this.getConnection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql);) {
-
             while(rs.next()){
                 Arbitro arbitro = new Arbitro();
 
@@ -24,12 +23,9 @@ public class DaoArbitros extends BaseDao{
 
                 listaArbitros.add(arbitro);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return listaArbitros;
     }
 
