@@ -7,9 +7,8 @@ import java.util.ArrayList;
 public class DaoArbitros {
     public ArrayList<Arbitro> listarArbitros() {
         ArrayList<Arbitro> arbitros = new ArrayList<>();
-        /*
-        Inserte su código aquí
-        */
+        String sql = "select * from arbitro";
+
         return arbitros;
     }
 

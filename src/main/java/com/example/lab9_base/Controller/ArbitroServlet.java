@@ -21,10 +21,7 @@ public class ArbitroServlet extends HttpServlet {
         switch (action) {
 
             case "buscar":
-                /*
-                Inserte su código aquí
-                */
-                break;
+
 
             case "guardar":
                 /*
