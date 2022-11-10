@@ -3,8 +3,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
+<% ArrayList<Arbitro> listaarbitros = (ArrayList<Arbitro>) request.getAttribute("listaArbitros");
+    ArrayList<String> opciones = (ArrayList<String>) request.getAttribute("opciones");
 
-<% ArrayList<Arbitro> listaarbitros = (ArrayList<Arbitro>) request.getAttribute("listaArbitros");%>
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,9 +26,14 @@
                 </div>
                 <form method="post" action="<%= request.getContextPath()%>/ArbitroServlet?action=buscar" class="row">
                     <div class="col-lg-3">
+
                         <select name="tipo" class="form-control">
-                            <%--                    ACA DEBE COLOCAR LA LISTA DE OPCIONES MOSTRADAS EN EL SERVLET--%>
+                                <%for (String opcion : opciones){%>
+                                <option value="<%=opcion%>"><%=opcion%></option>
+                                <%}%>
                         </select>
+
+
                     </div>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" name="buscar">
