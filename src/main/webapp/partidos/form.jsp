@@ -6,6 +6,7 @@
         <title>LAB 9</title>
     </head>
     <body>
+        <jsp:include page="/includes/navbar.jsp"/>
         <div class='container'>
             <div class="row mb-4">
                 <div class="col"></div>

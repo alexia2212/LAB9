@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -6,6 +7,7 @@
         <title>LAB 9</title>
     </head>
     <body>
+        <jsp:include page="/includes/navbar.jsp"/>
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
