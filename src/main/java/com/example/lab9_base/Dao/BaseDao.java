@@ -16,3 +16,4 @@ public class BaseDao {
         return DriverManager.getConnection(url, user, pass);
     }
 }
+
