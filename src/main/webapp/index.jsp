@@ -1,10 +1,9 @@
 <%@ page import="com.example.lab9_base.Bean.Partido" %>
-<%@ page import="com.example.lab9_base.Bean.Estadio" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("lista");%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
+<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("lista");%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +11,7 @@
         <title>LAB 9</title>
     </head>
     <body>
-        <jsp:include page="includes/navbar.jsp"/>
+        <jsp:include page="/includes/navbar.jsp"/>
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
@@ -32,11 +31,8 @@
                     <th>Estadio a jugar</th>
                     <th>Árbitro</th>
                 </tr>
-                <% int i = 1;
-                    for (Partido partido : listaDePartidos) { %>
+                <% for (Partido partido : listaDePartidos) { %>
                 <tr>
-                    <td><%=i%>
-                    </td>
                     <td><%=partido.getIdPartido()%>
                     </td>
                     <td><%=partido.getNumeroJornada()%>
@@ -45,11 +41,11 @@
                     </td>
                     <td><%=partido.getSeleccionVisitante()%>
                     </td>
-
+                    <td><%= partido.%>/td>
                     <td><%=partido.getArbitro()%>
                     </td>
                 </tr>
-                <% i++;
+                <%
                 }
                 %>
             </table>
