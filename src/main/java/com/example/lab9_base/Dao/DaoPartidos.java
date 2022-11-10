@@ -5,6 +5,7 @@ import com.example.lab9_base.Bean.Arbitro;
 import com.example.lab9_base.Bean.Partido;
 import com.example.lab9_base.Bean.Estadio;
 import com.example.lab9_base.Bean.Seleccion;
+import jakarta.servlet.http.Part;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,12 @@ public class DaoPartidos extends BaseDao{
     public ArrayList<Partido> listaDePartidos() {
 
         ArrayList<Partido> listaPartidos = new ArrayList<>();
-        String sql = "select * from partido";
+        String sql = "select p.idPartido, p.numeroJornada, p.fecha, l.nombre, v.nombre, e.nombre, a.nombre\n" +
+                "from partido p\n" +
+                "    inner join arbitro a on p.arbitro = a.idArbitro\n" +
+                "inner join seleccion l on p.seleccionLocal = l.idSeleccion\n" +
+                "inner join seleccion v on p.seleccionVisitante = v.idSeleccion\n" +
+                "inner join estadio e on l.estadio_idEstadio = e.idEstadio;";
 
         try (Connection connection = this.getConnection();
              Statement stmt = connection.createStatement();
@@ -20,30 +26,28 @@ public class DaoPartidos extends BaseDao{
 
             while(rs.next()){
                 Partido partido = new Partido();
-                Seleccion seleccionLocal = new Seleccion();
-                Seleccion seleccionVisitante = new Seleccion();
-                Estadio estadio = new Estadio();
+                Seleccion local = new Seleccion();
+                Seleccion visitante = new Seleccion();
                 Arbitro arbitro = new Arbitro();
-                partido.setIdPartido(rs.getInt(1));
-                partido.setFecha(rs.getString(2));
-                partido.setNumeroJornada(rs.getInt(3));
-                seleccionLocal.setNombre(rs.getString(4));
-                partido.setSeleccionLocal(seleccionLocal);
-                seleccionVisitante.setNombre(rs.getString(5));
-                partido.setSeleccionVisitante(seleccionVisitante);
-                estadio.setNombre(rs.getString(6));
-                seleccionLocal.setEstadio(estadio);
-                arbitro.setNombre(rs.getString(7));
-                partido.setArbitro(arbitro);
+                Estadio estadioLocal = new Estadio();
 
+                partido.setIdPartido(rs.getInt(1));
+                partido.setNumeroJornada(rs.getInt(2));
+                partido.setFecha(rs.getString(3));
+                partido.setSeleccionLocal(local);
+                local.setNombre(rs.getString(4));
+                partido.setSeleccionVisitante(visitante);
+                visitante.setNombre(rs.getString(5));
+                local.setEstadio(estadioLocal);
+                estadioLocal.setNombre(rs.getString(6));
+                partido.setArbitro(arbitro);
+                arbitro.setNombre(rs.getString(7));
                 listaPartidos.add(partido);
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return listaPartidos;
     }
 

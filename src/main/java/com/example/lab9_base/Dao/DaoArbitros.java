@@ -18,8 +18,9 @@ public class DaoArbitros extends BaseDao{
             while(rs.next()){
                 Arbitro arbitro = new Arbitro();
 
-                arbitro.setNombre(rs.getString(1));
-                arbitro.setPais(rs.getString(2));
+                arbitro.setIdArbitro(rs.getInt(1));
+                arbitro.setNombre(rs.getString(2));
+                arbitro.setPais(rs.getString(3));
 
                 listaArbitros.add(arbitro);
             }

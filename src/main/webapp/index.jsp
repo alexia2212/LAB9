@@ -2,20 +2,22 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
+
+<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("Lista");%>
 <!DOCTYPE html>
-<%ArrayList<Partido> listaDePartidos = (ArrayList<Partido>) request.getAttribute("listaDePartido");%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />
         <title>LAB 9</title>
     </head>
+
     <body>
+    <jsp:include page="includes/navbar.jsp"/>
 
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
-                    <jsp:include page="includes/navbar.jsp"/>
                     <h1 class=''>Lista de Partidos</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
@@ -32,27 +34,20 @@
                     <th>Estadio a jugar</th>
                     <th>Arbitro</th>
                 </tr>
-                <% int i = 1;
-                    for (Partido partido : listaDePartidos) { %>
                 <tr>
-                    <td><%=i%>
-                    </td>
-                    <td><%=partido.getNumeroJornada()%>
-                    </td>
-                    <td><%=partido.getFecha()%>
-                    </td>
-                    <td><%=partido.getSeleccionLocal().getNombre()%>
-                    </td>
-                    <td><%=partido.getSeleccionVisitante().getNombre()%>
-                    </td>
-                    <td><%=partido.getSeleccionLocal().getEstadio().getNombre()%>
-                    </td>
-                    <td><%=partido.getArbitro().getNombre()%>
-                    </td>
+                    <%for (Partido partido : listaDePartidos) { %>
+                    <tr>
+                        <td><%= partido.getIdPartido()%></td>
+                        <td><%=partido.getNumeroJornada()%></td>
+                        <td><%=partido.getFecha()%></td>
+                        <td><%=partido.getSeleccionLocal().getNombre()%></td>
+                        <td><%=partido.getSeleccionVisitante().getNombre()%></td>
+                        <td><%=partido.getSeleccionLocal().getEstadio().getNombre()%></td>
+                        <td><%=partido.getArbitro().getNombre()%></td>
+
+                    </tr>
+                    <% }%>
                 </tr>
-                <% i++;
-                }
-                %>
             </table>
 
         </div>
