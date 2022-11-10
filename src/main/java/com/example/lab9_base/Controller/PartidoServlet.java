@@ -1,5 +1,7 @@
 package com.example.lab9_base.Controller;
 
+import com.example.lab9_base.Bean.Partido;
+import com.example.lab9_base.Dao.DaoPartidos;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -12,13 +14,29 @@ public class PartidoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action") == null ? "guardar" : request.getParameter("action");
         RequestDispatcher view;
-
+        DaoPartidos daoPartidos = new DaoPartidos();
         switch (action) {
 
             case "guardar":
-                /*
-                Inserte su código aquí
-                */
+                String jornadaSer = request.getParameter("numeroJornada");
+                int jonadaNum = Integer.parseInt(jornadaSer);
+                String fechaSer = request.getParameter("fecha");
+                String seleccionLocalSer = request.getParameter("seleccionLocal");
+                String seleccionVisitanteSer = request.getParameter("seleccionVisitante");
+                String arbitro = request.getParameter("arbitro");
+
+                try{
+                    Partido partido = new Partido();
+                    partido.setNumeroJornada(jonadaNum);
+                    partido.setFecha(fechaSer);
+                    partido.setSeleccionLocal(seleccionLocalSer);
+                    partido.setSeleccionVisitante(seleccionVisitanteSer);
+                    partido.setArbitro(arbitro);
+                    daoPartidos.crearPartido(partido);
+                    response.sendRedirect(request.getContextPath()+"/PartidoServlet");
+                }catch (NumberFormatException e){
+                    response.sendRedirect(request.getContextPath()+"/PartidoServlet?action=crear");
+                }
                 break;
 
         }
@@ -31,18 +49,14 @@ public class PartidoServlet extends HttpServlet {
         RequestDispatcher view;
         switch (action) {
             case "lista":
-                /*
-                Inserte su código aquí
-                 */
+                request.setAttribute("Lista", action);
                 view = request.getRequestDispatcher("index.jsp");
                 view.forward(request, response);
                 break;
             case "crear":
-                /*
-                Inserte su código aquí
-                 */
+                view = request.getRequestDispatcher("partidos/form.jsp");
+                view.forward(request,response);
                 break;
-
         }
 
     }
