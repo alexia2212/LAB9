@@ -6,23 +6,6 @@ public class Partido {
     private int numeroJornada;
     private Seleccion seleccionLocal;
     private Seleccion seleccionVisitante;
-
-    public Seleccion getSeleccionLocal() {
-        return seleccionLocal;
-    }
-
-    public void setSeleccionLocal(Seleccion seleccionLocal) {
-        this.seleccionLocal = seleccionLocal;
-    }
-
-    public Seleccion getSeleccionVisitante() {
-        return seleccionVisitante;
-    }
-
-    public void setSeleccionVisitante(Seleccion seleccionVisitante) {
-        this.seleccionVisitante = seleccionVisitante;
-    }
-
     private Arbitro arbitro;
 
     public int getIdPartido() {
@@ -47,6 +30,22 @@ public class Partido {
 
     public void setNumeroJornada(int numeroJornada) {
         this.numeroJornada = numeroJornada;
+    }
+
+    public Seleccion getSeleccionLocal() {
+        return seleccionLocal;
+    }
+
+    public void setSeleccionLocal(Seleccion seleccionLocal) {
+        this.seleccionLocal = seleccionLocal;
+    }
+
+    public Seleccion getSeleccionVisitante() {
+        return seleccionVisitante;
+    }
+
+    public void setSeleccionVisitante(Seleccion seleccionVisitante) {
+        this.seleccionVisitante = seleccionVisitante;
     }
 
     public Arbitro getArbitro() {
