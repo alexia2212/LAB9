@@ -24,8 +24,17 @@ public class ArbitroServlet extends HttpServlet {
         switch (action) {
 
             case "buscar":
-                String buscar = request.getParameter("keyword");
-                ArrayList<Arbitro> listaFiltrada =daoArbitros.busquedaNombre(buscar);
+                String buscar = request.getParameter("buscar");
+                String opcion = request.getParameter("tipo");
+
+                request.setAttribute("opciones", opciones);
+                ArrayList<Arbitro> listaFiltrada = new ArrayList<>();
+
+                if(opcion.equals("nombre")){
+                    listaFiltrada = daoArbitros.busquedaNombre(buscar);
+                }else{
+                    listaFiltrada = daoArbitros.busquedaPais(buscar);
+                }
 
                 request.setAttribute("listaArbitros",listaFiltrada);
                 view = request.getRequestDispatcher("/arbitros/list.jsp");
@@ -33,7 +42,6 @@ public class ArbitroServlet extends HttpServlet {
                 break;
 
             case "guardar":
-
                 String nombre = request.getParameter("nombre");
                 String pais = request.getParameter("pais");
 
@@ -75,7 +83,7 @@ public class ArbitroServlet extends HttpServlet {
 
         switch (action) {
             case "lista":
-
+                request.setAttribute("opciones", opciones);
                 request.setAttribute("listaArbitros", daoArbitros.listarArbitros());
                 view = request.getRequestDispatcher("/arbitros/list.jsp");
                 view.forward(request, response);
