@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.lab9_base.Bean.Seleccion" %>
 <%@ page import="com.example.lab9_base.Bean.Arbitro" %>
-<%@ page import="java.util.ArrayList" %>
 
 <jsp:useBean id="listaSeleccionesI" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
 <jsp:useBean id="listaSeleccionesII" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
 <jsp:useBean id="listaArbitros" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Arbitro>"/>
 
-<%ArrayList<Seleccion> listarSeleccionesI = (ArrayList<Seleccion>) request.getAttribute("listaSeleccioonesI");%>
-<%ArrayList<Seleccion> listarSeleccionesII = (ArrayList<Seleccion>) request.getAttribute("listaSeleccioonesII");%>
 
 <html>
     <head>
@@ -26,7 +23,7 @@
                     <form method="POST" action="<%=request.getContextPath()%>/PartidoServlet?action=guardar">
                         <div class="form-group">
                             <label>Jornada</label>
-                            <input type="number" class="form-control" name="jornada">
+                            <input type="number" class="form-control" name="numeroJornada">
                         </div>
                         <div class="form-group">
                             <label>Fecha</label>
@@ -35,17 +32,17 @@
                         </div>
                         <div class="form-group">
                             <label>Selección local</label>
-                            <select name="local" class="form-control">
+                            <select name="seleccionLocal" class="form-control">
                                 <% for (Seleccion seleccionLocal : listaSeleccionesI) {%>
-                                <option value="<%=seleccionLocal.getIdSeleccion()%>"><%=seleccionLocal.getNombre()%>></option>
+                                <option value="<%=seleccionLocal.getIdSeleccion()%>"><%=seleccionLocal.getNombre()%></option>
                                 <% } %>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Selección Visitante</label>
-                            <select name="visitante" class="form-control">
+                            <select name="seleccionVisitante" class="form-control">
                                 <% for(Seleccion seleccionVisita : listaSeleccionesII) {%>
-                                <option value="<%=seleccionVisita.getIdSeleccion()%>>"><%=seleccionVisita.getNombre()%>></option>
+                                <option value="<%=seleccionVisita.getIdSeleccion()%>"><%=seleccionVisita.getNombre()%></option>
                                 <% } %>
                             </select>
                         </div>
@@ -53,7 +50,7 @@
                             <label>Árbitro</label>
                             <select name="arbitro" class="form-control">
                                 <% for(Arbitro arbitro : listaArbitros ){%>
-                                <option value="<%=arbitro.getIdArbitro()%>"><%=arbitro.getNombre()%>></option>
+                                <option value="<%=arbitro.getIdArbitro()%>"><%=arbitro.getNombre()%></option>
                                 <% } %>
                             </select>
                         </div>

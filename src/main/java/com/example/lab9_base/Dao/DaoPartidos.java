@@ -52,9 +52,10 @@ public class DaoPartidos extends BaseDao{
 
     public void crearPartido(Partido partido) {
 
-        String sql = "INSERT INTO partido (numeroJornada,fecha, seleccionLocal, seleccionVisitante, arbitro) VALUES (?,?,?,?,?) ";
+        String sql = "INSERT INTO partido (seleccionLocal, seleccionVisitante, arbitro,fecha,numeroJornada) VALUES (?,?,?,?,?) ";
         try (Connection conn1 = this.getConnection();
              PreparedStatement pstmt1 = conn1.prepareStatement(sql)){
+
             pstmt1.setInt(1, partido.getSeleccionLocal().getIdSeleccion());
             pstmt1.setInt(2, partido.getSeleccionVisitante().getIdSeleccion());
             pstmt1.setInt(3, partido.getArbitro().getIdArbitro());
@@ -64,8 +65,8 @@ public class DaoPartidos extends BaseDao{
 
             pstmt1.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

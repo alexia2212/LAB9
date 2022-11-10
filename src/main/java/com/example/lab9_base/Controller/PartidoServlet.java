@@ -30,42 +30,33 @@ public class PartidoServlet extends HttpServlet {
 
         switch (action) {
             case "guardar":
-                //Partido partido = new Partido();
-                String jornadaPartido = request.getParameter("jornada");
+                String jornadaPartido = request.getParameter("numeroJornada");
                 int ID_jornada =Integer.parseInt(jornadaPartido);
-                //partido.setNumeroJornada(ID_jornada);
-                String fechaPartido = request.getParameter("fecha");
-                //partido.setFecha(fechaPartido);
-
                 Seleccion seleccionI = new Seleccion();
-                String localPartido = request.getParameter("seleccionLocal");
-                int ID_localPartido = Integer.parseInt(localPartido);
+                String seleccionLocal = request.getParameter("seleccionLocal");
+                int ID_localPartido = Integer.parseInt(seleccionLocal);
                 seleccionI.setIdSeleccion(ID_localPartido);
 
                 Seleccion seleccionII = new Seleccion();
-                String visitantePartido = request.getParameter("seleccionVisitante");
-                int ID_visitantePartido = Integer.parseInt(visitantePartido);
+                String seleccionVisitante = request.getParameter("seleccionVisitante");
+                int ID_visitantePartido = Integer.parseInt(seleccionVisitante);
                 seleccionII.setIdSeleccion(ID_visitantePartido);
 
                 Arbitro arbitroI = new Arbitro();
-                String arbitro = request.getParameter("arbitro");
-                int ID_arbitroPartido = Integer.parseInt(arbitro);
+                String arbitroSer = request.getParameter("arbitro");
+                int ID_arbitroPartido = Integer.parseInt(arbitroSer);
                 arbitroI.setIdArbitro(ID_arbitroPartido);
-                /*
-                partido.setSeleccionLocal(seleccionI);
-                partido.setSeleccionVisitante(seleccionII);
-                partido.setArbitro(arbitroI);
-                daoPartidos.crearPartido(partido);
-
-                response.sendRedirect(request.getContextPath()+ "/PartidoServlet?action=crear");*/
+                String fechaSer = request.getParameter("fecha");
                 try{
-                    Partido partido = new Partido();
-                    partido.setNumeroJornada(ID_jornada);
-                    partido.setFecha(fechaPartido);
-                    partido.setSeleccionLocal(seleccionI);
-                    partido.setSeleccionVisitante(seleccionII);
-                    partido.setArbitro(arbitroI);
-                    daoPartidos.crearPartido(partido);
+                    Partido newpartido = new Partido();
+                    newpartido.setNumeroJornada(ID_jornada);
+                    newpartido.setSeleccionLocal(seleccionI);
+                    newpartido.setSeleccionVisitante(seleccionII);
+                    newpartido.setArbitro(arbitroI);
+                    newpartido.setFecha(fechaSer);
+
+
+                    daoPartidos.crearPartido(newpartido);
                     response.sendRedirect(request.getContextPath()+ "/PartidoServlet?");
 
                 }catch (NumberFormatException e){
