@@ -43,7 +43,7 @@ public class ArbitroServlet extends HttpServlet {
 
             case "guardar":
                 String nombre = request.getParameter("nombre");
-                String pais = request.getParameter("pais");
+                String pais = request.getParameter("tipo");
 
                 try{
                     Arbitro newarbitro = new Arbitro();
@@ -89,6 +89,7 @@ public class ArbitroServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "crear":
+                request.setAttribute("paises", paises);
                 view = request.getRequestDispatcher("/arbitros/form.jsp");
                 view.forward(request,response);
                 break;

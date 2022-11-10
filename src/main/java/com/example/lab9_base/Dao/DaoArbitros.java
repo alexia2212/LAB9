@@ -48,7 +48,6 @@ public class DaoArbitros extends BaseDao{
 
     }
 
-
     public ArrayList<Arbitro> busquedaPais(String pais) {
 
         String sql = "select * from arbitro where pais like ?";
@@ -134,13 +133,24 @@ public class DaoArbitros extends BaseDao{
     }
 
     public Arbitro buscarArbitro(int id) {
-        Arbitro arbitro = new Arbitro();
-        /*
-        Inserte su código aquí
-        */
-        return arbitro;
+        Arbitro ar = null;
+        String sql = "SELECT * FROM arbitro WHERE idArbitro = ?";
+        try (Connection conn5 = this.getConnection();
+             PreparedStatement pstmt5 = conn5.prepareStatement(sql)){
+            pstmt5.setInt(1, id);
+            try (ResultSet rs = pstmt5.executeQuery()) {
+                if (rs.next()) {
+                    ar = new Arbitro();
+                    ar.setIdArbitro(id);
+                    ar.setNombre(rs.getString("nombre"));
+                    ar.setPais(rs.getString("pais"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ar;
     }
-
     public void borrarArbitro(int id) {
         String sql = "delete from arbitro where idArbitro = ?";
 
