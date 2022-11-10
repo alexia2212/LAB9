@@ -54,7 +54,45 @@ public class DaoPartidos extends BaseDao{
         }
     }
 
+    public ArrayList<Partido> busqueda(String idPartido){
+        String sql = "select * from partido where idPartido like ?";
+        String sql1 = "select * from arbitro";
 
+        ArrayList<Partido> listaFiltradaID = new ArrayList<>();
+
+        try(Connection conn = this.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);){
+            pstmt.setString(1,"%"+idPartido+"%");
+
+
+            try(ResultSet rs = pstmt.executeQuery();){
+                while(rs.next()){
+                    Partido partido = new Partido();
+
+                    partido.setIdPartido(rs.getInt("idPartido"));
+                    partido.setFecha(rs.getString("fecha"));
+                    partido.setSeleccionLocal(rs.getString("seleccionLocal"));
+                    partido.setSeleccionVisitante(rs.getString("seleccionVisitante"));
+                    partido.setArbitro(rs.getString("arbitro"));
+
+
+                    try (Connection connection2 = this.getConnection();
+                         Statement stmt2 = connection2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                         ResultSet rs1 = stmt2.executeQuery(sql1);) {
+
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    listaFiltradaID.add(partido);
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return listaFiltradaID;
+    }
 
 
 }

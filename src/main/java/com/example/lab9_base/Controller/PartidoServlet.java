@@ -7,15 +7,31 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-@WebServlet(name = "PartidoServlet", urlPatterns = {"/PartidoServlet", ""})
+@WebServlet(name = "PartidoServlet", urlPatterns = {"/PartidoServlet"})
 public class PartidoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action") == null ? "guardar" : request.getParameter("action");
         RequestDispatcher view;
+        ArrayList<String> opciones = new ArrayList<>();
+        opciones.add("seleccionLocal");
+        opciones.add("seleccionVisitante");
+        opciones.add("arbitro");
+        opciones.add("fecha");
+        opciones.add("numeroJornada");
         DaoPartidos daoPartidos = new DaoPartidos();
         switch (action) {
+            case "buscar":
+                String buscarPar = request.getParameter("keyword");
+                ArrayList<Partido> listaFiltrada = daoPartidos.busqueda(buscarPar);
+
+                request.setAttribute("listaPartido", listaFiltrada);
+                view= request.getRequestDispatcher("/index.jsp");
+                view.forward(request, response);
+                break;
 
             case "guardar":
                 String jornadaSer = request.getParameter("numeroJornada");
@@ -26,18 +42,19 @@ public class PartidoServlet extends HttpServlet {
                 String arbitro = request.getParameter("arbitro");
 
                 try{
-                    Partido partido = new Partido();
-                    partido.setNumeroJornada(jonadaNum);
-                    partido.setFecha(fechaSer);
-                    partido.setSeleccionLocal(seleccionLocalSer);
-                    partido.setSeleccionVisitante(seleccionVisitanteSer);
-                    partido.setArbitro(arbitro);
-                    daoPartidos.crearPartido(partido);
+                    Partido partidoNew = new Partido();
+
+                    partidoNew.setNumeroJornada(jonadaNum);
+                    partidoNew.setFecha(fechaSer);
+                    partidoNew.setSeleccionLocal(seleccionLocalSer);
+                    partidoNew.setSeleccionVisitante(seleccionVisitanteSer);
+                    partidoNew.setArbitro(arbitro);
+
+                    daoPartidos.crearPartido(partidoNew);
                     response.sendRedirect(request.getContextPath()+"/PartidoServlet");
                 }catch (NumberFormatException e){
                     response.sendRedirect(request.getContextPath()+"/PartidoServlet?action=crear");
                 }
-                break;
 
         }
     }

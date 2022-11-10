@@ -41,7 +41,7 @@
                     </td>
                     <td><%=partido.getSeleccionVisitante()%>
                     </td>
-                    <td><%= partido.%>/td>
+                    <td><%= %></td>
                     <td><%=partido.getArbitro()%>
                     </td>
                 </tr>
