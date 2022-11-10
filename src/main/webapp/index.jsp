@@ -11,7 +11,7 @@
         <title>LAB 9</title>
     </head>
     <body>
-        <jsp:include page="/includes/navbar.jsp"/>
+        <jsp:include page="includes/navbar.jsp"/>
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
@@ -31,10 +31,10 @@
                     <th>Estadio a jugar</th>
                     <th>Árbitro</th>
                 </tr>
-                <% for (Partido partido : listaDePartidos) { %>
+                <% int i = 1;
+                    for (Partido partido : listaDePartidos) { %>
                 <tr>
-                    <td><%=partido.getIdPartido()%>
-                    </td>
+                    <td><%= =i %></td>
                     <td><%=partido.getNumeroJornada()%>
                     </td>
                     <td><%=partido.getSeleccionLocal()%>
@@ -45,7 +45,7 @@
                     <td><%=partido.getArbitro()%>
                     </td>
                 </tr>
-                <%
+                <% i++;
                 }
                 %>
             </table>

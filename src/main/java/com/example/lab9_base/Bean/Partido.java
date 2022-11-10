@@ -4,9 +4,9 @@ public class Partido {
     private int idPartido;
     private String fecha;
     private int numeroJornada;
-    private String seleccionLocal;
-    private String seleccionVisitante;
-    private String arbitro;
+    private Seleccion seleccionLocal;
+    private Seleccion seleccionVisitante;
+    private Arbitro arbitro;
 
     public int getIdPartido() {
         return idPartido;
@@ -32,27 +32,27 @@ public class Partido {
         this.numeroJornada = numeroJornada;
     }
 
-    public String getSeleccionLocal() {
+    public Seleccion getSeleccionLocal() {
         return seleccionLocal;
     }
 
-    public void setSeleccionLocal(String seleccionLocal) {
+    public void setSeleccionLocal(Seleccion seleccionLocal) {
         this.seleccionLocal = seleccionLocal;
     }
 
-    public String getSeleccionVisitante() {
+    public Seleccion getSeleccionVisitante() {
         return seleccionVisitante;
     }
 
-    public void setSeleccionVisitante(String seleccionVisitante) {
+    public void setSeleccionVisitante(Seleccion seleccionVisitante) {
         this.seleccionVisitante = seleccionVisitante;
     }
 
-    public String getArbitro() {
+    public Arbitro getArbitro() {
         return arbitro;
     }
 
-    public void setArbitro(String arbitro) {
+    public void setArbitro(Arbitro arbitro) {
         this.arbitro = arbitro;
     }
 }
