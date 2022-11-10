@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PartidoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action") == null ? "guardar" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         RequestDispatcher view;
         ArrayList<String> opciones = new ArrayList<>();
         opciones.add("seleccionLocal");
@@ -30,12 +30,12 @@ public class PartidoServlet extends HttpServlet {
 
         switch (action) {
             case "guardar":
-                Partido partido = new Partido();
+                //Partido partido = new Partido();
                 String jornadaPartido = request.getParameter("jornada");
                 int ID_jornada =Integer.parseInt(jornadaPartido);
-                partido.setNumeroJornada(ID_jornada);
+                //partido.setNumeroJornada(ID_jornada);
                 String fechaPartido = request.getParameter("fecha");
-                partido.setFecha(fechaPartido);
+                //partido.setFecha(fechaPartido);
 
                 Seleccion seleccionI = new Seleccion();
                 String localPartido = request.getParameter("seleccionLocal");
@@ -51,15 +51,26 @@ public class PartidoServlet extends HttpServlet {
                 String arbitro = request.getParameter("arbitro");
                 int ID_arbitroPartido = Integer.parseInt(arbitro);
                 arbitroI.setIdArbitro(ID_arbitroPartido);
-
+                /*
                 partido.setSeleccionLocal(seleccionI);
                 partido.setSeleccionVisitante(seleccionII);
                 partido.setArbitro(arbitroI);
                 daoPartidos.crearPartido(partido);
 
-                response.sendRedirect(request.getContextPath()+ "/PartidoServlet");
+                response.sendRedirect(request.getContextPath()+ "/PartidoServlet?action=crear");*/
+                try{
+                    Partido partido = new Partido();
+                    partido.setNumeroJornada(ID_jornada);
+                    partido.setFecha(fechaPartido);
+                    partido.setSeleccionLocal(seleccionI);
+                    partido.setSeleccionVisitante(seleccionII);
+                    partido.setArbitro(arbitroI);
+                    daoPartidos.crearPartido(partido);
+                    response.sendRedirect(request.getContextPath()+ "/PartidoServlet?");
 
-                break;
+                }catch (NumberFormatException e){
+                    response.sendRedirect(request.getContextPath() + "/PartidoServlet?action=crear");
+                }
         }
     }
 
@@ -70,8 +81,8 @@ public class PartidoServlet extends HttpServlet {
         RequestDispatcher view;
         DaoArbitros daoArbitros = new DaoArbitros();
         DaoPartidos daoPartidos = new DaoPartidos();
-        DaoSelecciones daosSeleciones = new DaoSelecciones();
-        DaoSelecciones daoSeleccioness = new DaoSelecciones();
+        DaoSelecciones selecionesDaoI = new DaoSelecciones();
+        DaoSelecciones seleccionesDaoII = new DaoSelecciones();
         switch (action) {
             case "Lista":
                 request.setAttribute("Lista", daoPartidos.listaDePartidos());
@@ -79,11 +90,10 @@ public class PartidoServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "crear":
-
-                request.setAttribute("ListaSelecciones", daosSeleciones.listarSelecciones());
-                request.setAttribute("listaSleccioness", daoSeleccioness.listarSelecciones());
-                request.setAttribute("listaArbitro", daoArbitros.listarArbitros());
-                view = request.getRequestDispatcher("partidos/form.jps");
+                request.setAttribute("listaSeleccionesI", selecionesDaoI.listarSelecciones());
+                request.setAttribute("listaSeleccionesII", seleccionesDaoII.listarSelecciones());
+                request.setAttribute("listaArbitros", daoArbitros.listarArbitros());
+                view = request.getRequestDispatcher("partidos/form.jsp");
                 view.forward(request,response);
                 break;
         }

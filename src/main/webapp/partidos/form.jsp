@@ -2,8 +2,8 @@
 <%@ page import="com.example.lab9_base.Bean.Seleccion" %>
 <%@ page import="com.example.lab9_base.Bean.Arbitro" %>
 
-<jsp:useBean id="ListasSelecciones" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
-<jsp:useBean id="listaSeleccioness" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
+<jsp:useBean id="listaSeleccionesI" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
+<jsp:useBean id="listaSeleccionesII" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Seleccion>"/>
 <jsp:useBean id="listaArbitros" scope="request" type="java.util.ArrayList<com.example.lab9_base.Bean.Arbitro>"/>
 
 <html>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label>Selección local</label>
                             <select name="local" class="form-control">
-                                <% for (Seleccion seleccionLocal : ListasSelecciones) {%>
+                                <% for (Seleccion seleccionLocal : listaSeleccionesI) {%>
                                 <option value="<%=seleccionLocal.getIdSeleccion()%>"><%=seleccionLocal.getNombre()%>></option>
                                 <% } %>
                             </select>
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label>Selección Visitante</label>
                             <select name="visitante" class="form-control">
-                                <% for(Seleccion seleccionVisita : listaSeleccioness) {%>
+                                <% for(Seleccion seleccionVisita : listaSeleccionesII) {%>
                                 <option value="<%=seleccionVisita.getIdSeleccion()%>>"><%=seleccionVisita.getNombre()%>></option>
                                 <% } %>
                             </select>

@@ -12,7 +12,7 @@ public class DaoSelecciones extends BaseDao{
     public ArrayList<Seleccion> listarSelecciones() {
 
         ArrayList<Seleccion> selecciones = new ArrayList<>();
-        String sql = "SELECT * FROM seleccion";
+        String sql = "INSERT INTO seleccion (nombre, tecnico, estadio_idEstadio) VALUES (?,?,?)";
 
         try (Connection connection = this.getConnection();
              Statement stmt = connection.createStatement();
@@ -26,7 +26,9 @@ public class DaoSelecciones extends BaseDao{
                 seleccion.setTecnico(rs.getString(3));
                 estadio.setIdEstadio(rs.getInt(4));
                 seleccion.setEstadio(estadio);
+
                 selecciones.add(seleccion);
+
             }
 
         } catch (SQLException e) {

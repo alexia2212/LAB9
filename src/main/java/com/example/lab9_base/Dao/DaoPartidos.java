@@ -5,7 +5,6 @@ import com.example.lab9_base.Bean.Arbitro;
 import com.example.lab9_base.Bean.Partido;
 import com.example.lab9_base.Bean.Estadio;
 import com.example.lab9_base.Bean.Seleccion;
-import jakarta.servlet.http.Part;
 
 import java.util.ArrayList;
 
@@ -56,11 +55,12 @@ public class DaoPartidos extends BaseDao{
         String sql = "INSERT INTO partido (numeroJornada,fecha, seleccionLocal, seleccionVisitante, arbitro) VALUES (?,?,?,?,?) ";
         try (Connection conn1 = this.getConnection();
              PreparedStatement pstmt1 = conn1.prepareStatement(sql)){
-            pstmt1.setInt(1, partido.getNumeroJornada());
-            pstmt1.setString(2, partido.getFecha());
-            pstmt1.setInt(3, partido.getSeleccionLocal().getIdSeleccion());
-            pstmt1.setInt(4, partido.getSeleccionVisitante().getIdSeleccion());
-            pstmt1.setInt(5, partido.getArbitro().getIdArbitro());
+            pstmt1.setInt(1, partido.getSeleccionLocal().getIdSeleccion());
+            pstmt1.setInt(2, partido.getSeleccionVisitante().getIdSeleccion());
+            pstmt1.setInt(3, partido.getArbitro().getIdArbitro());
+            pstmt1.setString(4, partido.getFecha());
+            pstmt1.setInt(5, partido.getNumeroJornada());
+
 
             pstmt1.executeUpdate();
 
