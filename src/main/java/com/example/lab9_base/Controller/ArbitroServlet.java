@@ -44,21 +44,31 @@ public class ArbitroServlet extends HttpServlet {
             case "guardar":
                 String nombre = request.getParameter("nombre");
                 String pais = request.getParameter("tipo");
-
-                try{
-                    Arbitro newarbitro = new Arbitro();
-
-                    newarbitro.setNombre(nombre);
-                    newarbitro.setPais(pais);
-
-                    daoArbitros.crearArbitro(newarbitro);
-                    response.sendRedirect(request.getContextPath()+ "/ArbitroServlet?");
-
-                }catch (NumberFormatException e){
+                if(nombre.isBlank()){
+                    // está vacío  (espacios)
+                    request.getSession().setAttribute("nombre1" ,"Dato Vacío");
                     response.sendRedirect(request.getContextPath() + "/ArbitroServlet?action=crear");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                }else if(daoArbitros.busquedaNombre(nombre).size()>0){
+                    // está repetido
+                    request.getSession().setAttribute("nombre2","Nombre Repetido");
+                    response.sendRedirect(request.getContextPath() + "/ArbitroServlet?action=crear");
+                }else{
+                    try{
+                        Arbitro newarbitro = new Arbitro();
+
+                        newarbitro.setNombre(nombre);
+                        newarbitro.setPais(pais);
+
+                        daoArbitros.crearArbitro(newarbitro);
+                        response.sendRedirect(request.getContextPath()+ "/ArbitroServlet?");
+
+                    }catch (NumberFormatException e){
+                        response.sendRedirect(request.getContextPath() + "/ArbitroServlet?action=crear");
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
 
 
         }
@@ -100,7 +110,6 @@ public class ArbitroServlet extends HttpServlet {
                     int spelli = Integer.parseInt(spell);
                     daoArbitros.borrarArbitro(spelli);
                     response.sendRedirect(request.getContextPath()+"/ArbitroServlet");
-
                 }catch (NumberFormatException e){
                     response.sendRedirect(request.getContextPath()+ "/ArbitroServlet");
                 }

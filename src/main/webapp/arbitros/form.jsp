@@ -18,14 +18,34 @@
                 <div class="col"></div>
                 <div class="col-md-6">
                     <h1 class='mb-3'>Crear un Árbitro</h1>
+
                     <form method="POST" action="<%=request.getContextPath()%>/ArbitroServlet?action=guardar">
+
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" class="form-control" name="nombre">
+                            <input type="text" class="form-control" name="nombre" required>
                         </div>
+                        <% if(session.getAttribute("nombre1")!= null) {%>
+                        <div class="row g-2">
+                            <div class="alert alert-danger" role="alert">
+                                <%=session.getAttribute("nombre1")%>
+                            </div>
+                        </div>
+                        <%session.removeAttribute("nombre1");%>
+                        <%}%>
+
+                        <% if(session.getAttribute("nombre2")!= null) {%>
+                        <div class="row g-2">
+                            <div class="alert alert-danger" role="alert">
+                                <%=session.getAttribute("nombre2")%>
+                            </div>
+                        </div>
+                        <%session.removeAttribute("nombre2");%>
+                        <%}%>
+
                         <div class="form-group">
                             <label>País</label>
-                            <select name="tipo" class="form-control">
+                            <select name="tipo" class="form-control" required>
 
                                 <%for (String pais : paises){%>
                                 <option value="<%=pais%>"><%=pais%></option>

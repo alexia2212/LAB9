@@ -1,6 +1,7 @@
 package com.example.lab9_base.Dao;
 
 import com.example.lab9_base.Bean.Arbitro;
+import com.example.lab9_base.Controller.ArbitroServlet;
 
 import java.sql.*;
 import java.util.ArrayList;

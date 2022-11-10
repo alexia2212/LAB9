@@ -47,6 +47,16 @@
                     </div>
                 </form>
             </div>
+
+            <% if(session.getAttribute("borrado fallido")!= null) {%>
+            <div class="row g-5">
+                <div class="alert alert-danger" role="alert">
+                    <%=session.getAttribute("borrado fallido")%>
+                </div>
+            </div>
+            <%session.removeAttribute("borrado fallido");%>
+            <%}%>
+
             <table class="table">
                 <tr>
                     <th>#</th>
