@@ -13,24 +13,27 @@ public class DaoSelecciones extends BaseDao{
 
         ArrayList<Seleccion> selecciones = new ArrayList<>();
         String sql = "SELECT * FROM seleccion";
+        //String sql = "INSERT INTO seleccion (idSeleccion, nombre, tecnico, estadio_idEstadio) VALUES (?,?,?,?)";
 
         try (Connection connection = this.getConnection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Seleccion seleccion = new Seleccion();
+                Seleccion seleccionDao = new Seleccion();
+
+                seleccionDao.setIdSeleccion(rs.getInt(1));
+                seleccionDao.setNombre(rs.getString(2));
+                seleccionDao.setTecnico(rs.getString(3));
                 Estadio estadio = new Estadio();
-                seleccion.setIdSeleccion(rs.getInt(1));
-                seleccion.setNombre(rs.getString(2));
-                seleccion.setTecnico(rs.getString(3));
                 estadio.setIdEstadio(rs.getInt(4));
-                seleccion.setEstadio(estadio);
-                selecciones.add(seleccion);
+                seleccionDao.setEstadio(estadio);
+                selecciones.add(seleccionDao);
+
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return selecciones;
     }
