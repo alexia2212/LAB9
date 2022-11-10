@@ -9,7 +9,6 @@ public class DaoArbitros extends BaseDao{
     public ArrayList<Arbitro> listarArbitros() {
         ArrayList<Arbitro> listaArbitros = new ArrayList<>();
 
-
         String sql = "select * from arbitro";
 
         try (Connection connection = this.getConnection();

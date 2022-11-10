@@ -1,5 +1,10 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.lab9_base.Bean.Arbitro" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+
+
+<% ArrayList<Arbitro> listaarbitros = (ArrayList<Arbitro>) request.getAttribute("listaArbitros");%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,16 +47,18 @@
                     <th>Pais</th>
                     <th></th>
                 </tr>
+                <% for (Arbitro arbitro : listaarbitros) {%>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= arbitro.getIdArbitro()%></td>
+                    <td><%= arbitro.getNombre()%></td>
+                    <td><%= arbitro.getPais()%></td>
                     <td>
-                        <a href="<%=request.getContextPath()%>/ArbitroServlet?action=borrar&id=">
+                        <a href="<%=request.getContextPath()%>/ArbitroServlet?action=borrar&id=<%=arbitro.getIdArbitro()%>">
                             Borrar
                         </a>
                     </td>
                 </tr>
+                <%}%>
             </table>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
